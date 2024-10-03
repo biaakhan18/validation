@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Place Your Order</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="order-form-container">
+        <h1>Place Your Order</h1>
+        <form onsubmit="Validate()">
+            <label for="product">Select Product:</label>
+            <select id="product" name="product">
+                <option value="none" disabled selected>Select anyone</option>
+                <option value="watch">Watch</option>
+                <option value="glasses">Glasses</option>
+                <option value="shirt">Shirt</option>
+            </select>
+            <div id="product-error" style="display: none;color: red;"></div>
+
+            <label for="quantity">Quantity:</label>
+            <input type="text" id="quantity" name="quantity">
+            <div id="quantity-error" style="display: none;color: red;"></div>
+
+            <label for="customer-name">Full Name:</label>
+            <input type="text" id="customer-name" name="customer-name" placeholder="Name">
+            <div id="customer-name-error" style="display: none;color: red;"></div>
+
+            <label for="email">Email Address:</label>
+            <input type="text" id="email" name="email" placeholder="Email Address">
+            <div id="email-error" style="display: none;color: red;"></div>
+
+            <label for="phone">Phone Number:</label>
+            <input type="text" id="phone" name="phone" placeholder="Mobile Number">
+            <div id="phone-error" style="display: none;color: red;"></div>
+
+            <button type="submit"> Order</button>
+        </form>
+    </div>
+
+    <script>
+        function Validate() {
+            event.preventDefault()
+
+        
+            let product = document.getElementById("product").value
+            let quantity = document.getElementById("quantity").value
+            let customerName = document.getElementById("customer-name").value
+            let email = document.getElementById("email").value
+            let phone = document.getElementById("phone").value
+            let address = document.getElementById("address").value
+
+            
+            var productError = document.getElementById("product-error")
+            var quantityError = document.getElementById("quantity-error")
+            var customerError = document.getElementById("customer-name-error")
+            var emailError = document.getElementById("email-error")
+            var phoneError = document.getElementById("phone-error")
+            var addressError = document.getElementById("address-error")
+
+          
+            var quantityPatt = /^[1-7]$/
+            var customerPatt = /^[a-zA-Z ]{3,17}$/
+            var emailPatt = /^[^0-9][a-zA-Z0-9-_]+@[a-z]+\.[a-z]{2,3}$/
+            var phonePatt =  /^(\+92|92|0)?[3-9][0-9]{9}$/
+
+            // conditions
+            if (product == "none") {
+                productError.style.display = "block"
+                productError.innerHTML = "Please Select Product"
+            } else {
+                productError.style.display = "none"
+            }
+
+            if (quantity == "") {
+                quantityError.style.display = "block"
+                quantityError.innerHTML = "This field is required"
+            } else if (!quantityPatt.test(quantity)) {
+                quantityError.style.display = "block"
+                quantityError.innerHTML = "Enter  Quantity Only 1 to 7. "
+            } else {
+                quantityError.style.display = "none"
+            }
+
+            if (customerName == "") {
+                customerError.style.display = "block"
+                customerError.innerHTML = "This field is required"
+            } else if (!customerPatt.test(customerName)) {
+                customerError.style.display = "block"
+                customerError.innerHTML = "Please Enter your Full Name With Alphabets Only. "
+            } else {
+                customerError.style.display = "none"
+            }
+
+            if (email == "") {
+                emailError.style.display = "block"
+                emailError.innerHTML = "This field is required"
+            } else if (!emailPatt.test(email)) {
+                emailError.style.display = "block"
+                emailError.innerHTML = "Email Address (Example) [firstname][lastname]@[Gmail].com."
+            } else {
+                emailError.style.display = "none"
+            }
+
+            if (phone == "") {
+                phoneError.style.display = "block"
+                phoneError.innerHTML = "This field is required"
+            } else if (!phonePatt.test(phone)) {
+                phoneError.style.display = "block"
+                phoneError.innerHTML = " Enter Your Phone Number ."
+            } else {
+                phoneError.style.display = "none"
+            }
+
+            if (product != "none" && quantityPatt.test(quantity) && customerPatt.test(customerName) && emailPatt.test(email) && phonePatt.test(phone) && addressPatt.test(address)) {
+                alert("Form Submitted Sucessfully")
+                document.getElementById("product").value = "none"
+                document.getElementById("quantity").value = ""
+                document.getElementById("customer-name").value = ""
+                document.getElementById("email").value = ""
+                document.getElementById("phone").value = ""
+            } 
+
+        }
+    </script>
+</body>
+
+</html>
